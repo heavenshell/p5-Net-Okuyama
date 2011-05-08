@@ -1,0 +1,35 @@
+# NAME
+
+Net::Okuyama - okuyama(Distributed kvs) client library
+
+# SYNOPSIS
+
+    use Net::Okuyama;
+
+    my $client = Net::Okuyama->new(hosts => 'localhost:8888');
+    $client->set('foo' => bar');
+    $client->get('foo'); # => 'bar'
+    $client->remove('foo'); # remove foo
+
+
+
+# DESCRIPTION
+
+Okuyama.pm is [okuyama](http://sourceforge.jp/projects/okuyama/) client library for Perl5.
+
+This module is heavely inspired by [Redis](http://search.cpan.org/perldoc?Redis) and [Cache::KyotoTycoon](http://search.cpan.org/perldoc?Cache::KyotoTycoon).
+
+# AUTHOR
+
+Shinya Ohyanagi <sohyanagi AAJKLFJEF GMAIL COM>
+
+# SEE ALSO
+
+- [okuyama](http://sourceforge.jp/projects/okuyama/)
+
+# LICENSE
+
+Copyright (C) Shinya Ohyanagi
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.

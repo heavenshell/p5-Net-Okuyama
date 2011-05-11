@@ -118,6 +118,8 @@ sub close {
     delete $self->{host};
     $self->{size}     = 2560;
     $self->{max_size} = 2560;
+
+    return 1;
 }
 
 sub get {
@@ -245,17 +247,17 @@ sub _set {
             $buffer .= $CONST{TAG_DELIMITER} . encode_base64($tag, '');
         }
         $buffer  =~ s/$CONST{TAG_DELIMITER}//;
-        $command .= $buffer;
+        $command = $command . $buffer;
     } else {
         $command = $command . $CONST{BLANK_STRING};
     }
 
-    $command .= $CONST{DATA_DELIMITER} . $CONST{TRANSACTION_CODE} . $CONST{DATA_DELIMITER} . $value;
+    $command = $command . $CONST{DATA_DELIMITER} . $CONST{TRANSACTION_CODE} . $CONST{DATA_DELIMITER} . $value;
 
     if ($type eq $PREFIX_ID{ID_CAS} && looks_like_number($version)) {
         $command = $command . $CONST{DATA_DELIMITER} . $version;
     }
-    $command .= "\n";
+    $command = $command . "\n";
     my $response = $self->_parse($self->_send($command)->_recieve, $type);
 
     if ($response->[1] eq 'true') {

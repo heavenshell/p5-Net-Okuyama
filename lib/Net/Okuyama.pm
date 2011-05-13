@@ -247,17 +247,17 @@ sub _set {
             $buffer .= $CONST{TAG_DELIMITER} . encode_base64($tag, '');
         }
         $buffer  =~ s/$CONST{TAG_DELIMITER}//;
-        $command = $command . $buffer;
+        $command .= $buffer;
     } else {
-        $command = $command . $CONST{BLANK_STRING};
+        $command .= $CONST{BLANK_STRING};
     }
 
-    $command = $command . $CONST{DATA_DELIMITER} . $CONST{TRANSACTION_CODE} . $CONST{DATA_DELIMITER} . $value;
+    $command .= $CONST{DATA_DELIMITER} . $CONST{TRANSACTION_CODE} . $CONST{DATA_DELIMITER} . $value;
 
     if ($type eq $PREFIX_ID{ID_CAS} && looks_like_number($version)) {
-        $command = $command . $CONST{DATA_DELIMITER} . $version;
+        $command .= $CONST{DATA_DELIMITER} . $version;
     }
-    $command = $command . "\n";
+    $command .= "\n";
     my $response = $self->_parse($self->_send($command)->_recieve, $type);
 
     if ($response->[1] eq 'true') {
